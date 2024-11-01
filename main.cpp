@@ -1,3 +1,6 @@
+//comsc-210 | ali saeed | lab 27
+//ide used: vs code
+
 #include <iostream>
 #include <map>
 #include <tuple>
@@ -25,21 +28,26 @@ int main() {
         switch(choice) {
             case 1:
                 add_villager(villagerColors);
+                display_all(villagerColors);
                 break;
             case 2:
                 del_villager(villagerColors);
+                display_all(villagerColors);
                 break;
             case 3:
                 increase_friendship(villagerColors);
+                display_all(villagerColors);
                 break;
             case 4:
                 decrease_friendship(villagerColors);
+                display_all(villagerColors);
                 break;
             case 5:
                 search(villagerColors);
+                display_all(villagerColors);
                 break;
             case 6:
-                display_all(villagerColors);
+                cout << "\tExiting..." << endl;
                 break;
             default: 
                 cout << "Invalid choice.\n";
@@ -86,9 +94,14 @@ void del_villager(map<string, tuple<int, string, string>>& mapp) {
     getline(cin, name);
 
     auto it = mapp.find(name);
-    
-    mapp.erase(name);
-    cout << "\t" << name << " deleted." << endl;
+    if (it != mapp.end()) {
+         mapp.erase(it);
+        cout << "\t" << name << " deleted." << endl;
+    }
+    else {
+        cout << "\t" << "Not in map\n";
+    }
+
 }
 
 void increase_friendship(map<string, tuple<int, string, string>>& mapp) {
@@ -146,7 +159,7 @@ void search(map<string, tuple<int, string, string>>& mapp) {
         int &friendship = get<0>(it->second);
         string &species = get<1>(it->second);
         string &catchphrase = get<2>(it->second);
-        cout << "\tVillager Found: " << name << "[" << friendship << ", " << species << ", " << catchphrase << "]\n";
+        cout << "\t\tVillager Found: " << name << " [" << friendship << ", " << species << ", " << catchphrase << "]\n";
     }
     else {
         cout << "\tVillager not found\n";
@@ -156,7 +169,7 @@ void search(map<string, tuple<int, string, string>>& mapp) {
 
 void display_all(map<string, tuple<int, string, string>>& mapp) {
     if (mapp.empty()) {
-        cout << "No villagers." << endl;
+        cout << "\tNo villagers." << endl;
         return;
     }
 
