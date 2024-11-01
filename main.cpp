@@ -5,7 +5,8 @@
 using namespace std;
 
 int main_menu();
-void add_villager();
+void add_villager(map<string, tuple<int, string, string>>&);
+void del_villager(map<string, tuple<int, string, string>>&);
 
 int main() {
     cout << "Villager Map!" << endl;
@@ -14,16 +15,13 @@ int main() {
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
-    villagerColors["Audie"] = {"Orange", "Yellow", "Red"};
-    villagerColors["Raymond"] = {"Black", "Gray", "White"};
-    villagerColors.insert({"Marshal", {"Blue", "White", "Black"}});
 
     // access the map using a range-based for loop
     cout << "Villagers and their favorite colors (range-based for loop):" << endl;
     for (auto pair : villagerColors) {
         cout << pair.first << ": ";
-        for (auto color : pair.second)
-            cout << color << " ";
+   ///     for (auto color : pair.second)
+     //       cout << color << " ";
         cout << endl;
     }
 
@@ -62,21 +60,34 @@ int main() {
 }
 
 int main_menu() {
-    cout << "\t1. Add Villager" << endl;
-    cout << "\t2. Delete Villager" << endl;
-    cout << "\t3. Increase Friendship" << endl;
-    cout << "\t4. Decrease Friendship" << endl;
-    cout << "\t5. Search for Villager" << endl;   
-    cout << "\t6. Exit" << endl;
-    cout << "\tEnter choice: ";
+    cout << "1. Add Villager" << endl;
+    cout << "2. Delete Villager" << endl;
+    cout << "3. Increase Friendship" << endl;
+    cout << "4. Decrease Friendship" << endl;
+    cout << "5. Search for Villager" << endl;   
+    cout << "6. Exit" << endl;
+    cout << "Enter choice: ";
     int choice;
     cin >> choice;
     return choice;
 }
 
-void add_villager() {
+void add_villager(map<string, tuple<int, string, string>>& mapp) {
     string name, species, catchphrase;
     int friendship; 
-    cout << "Villager name: "
+    cout << "Villager name: ";
+    cin.ignore();
+    getline(cin, name);
+    cout << "Friendship level: ";
+    cin >> friendship;
+    cout << "Species: ";
+    cin.ignore();
+    getline(cin, species);
+    cout << "Catchphrase: ";
+    cin.ignore();
+    getline(cin, catchphrase);
+    mapp[name] = make_tuple(friendship, species, catchphrase);
+    cout << name << " added." << endl;
 }
 
+void delete_villager();
