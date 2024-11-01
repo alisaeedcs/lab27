@@ -1,7 +1,8 @@
 #include <iostream>
 #include <map>
-#include <vector>
 #include <tuple>
+#include <string>
+#include <vector>
 using namespace std;
 
 int main_menu();
@@ -10,13 +11,14 @@ void del_villager(map<string, tuple<int, string, string>>&);
 void increase_friendship(map<string, tuple<int, string, string>>&);
 void decrease_friendship(map<string, tuple<int, string, string>>&);
 void search(map<string, tuple<int, string, string>>&);
+void display_all(map<string, tuple<int, string, string>>& mapp);
 
 int main() {
     cout << "Villager Map!" << endl;
     // declarations
     map<string, tuple<int, string, string>> villagerColors;
 
-    int choice;
+    int choice = 0;
     while (choice != 6) {
         choice = main_menu();
         switch(choice) {
@@ -36,6 +38,10 @@ int main() {
                 search(villagerColors);
                 break;
             case 6:
+                display_all(villagerColors);
+                break;
+            default: 
+                cout << "Invalid choice.\n";
         }
     }
 
@@ -141,6 +147,22 @@ void search(map<string, tuple<int, string, string>>& mapp) {
     }
     else {
         cout << "\tVillager not found\n";
+    }
+
+}
+
+void display_all(map<string, tuple<int, string, string>>& mapp) {
+    if (mapp.empty()) {
+        cout << "No villagers." << endl;
+        return;
+    }
+
+    cout << "Villager Details: \n";
+    for (const auto& [name, info] : mapp) {
+        int friendship = get<0>(info);
+        string species = get<1>(info);
+        string catchphrase = get<2>(info);
+        cout << name << " [" << friendship << ", " << species << ", " << catchphrase << "]\n";
     }
 
 }
