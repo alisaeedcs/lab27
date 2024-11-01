@@ -7,6 +7,8 @@ using namespace std;
 int main_menu();
 void add_villager(map<string, tuple<int, string, string>>&);
 void del_villager(map<string, tuple<int, string, string>>&);
+void increase_friendship(map<string, tuple<int, string, string>>&);
+void decrease_friendship(map<string, tuple<int, string, string>>&);
 
 int main() {
     cout << "Villager Map!" << endl;
@@ -90,4 +92,37 @@ void add_villager(map<string, tuple<int, string, string>>& mapp) {
     cout << name << " added." << endl;
 }
 
-void delete_villager();
+void delete_villager(map<string, tuple<int, string, string>>& mapp) {
+    string name;
+    cout << "Enter villager name: ";
+    cin.ignore();
+    getline(cin, name);
+    mapp.erase(name);
+    cout << name << " deleted." << endl;
+}
+
+void increase_friendship(map<string, tuple<int, string, string>>& mapp) {
+    string name;
+    cout << "Enter villager name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    auto it = mapp.find(name);
+    if (it != mapp.end()) {
+        mapp
+    }
+}
+
+void decrease_friendship(map<string, tuple<int, string, string>>& mapp) {
+    string name;
+    cout << "Enter villager name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    auto it = mapp.find(name);
+    if (it != mapp.end()) {
+        
+    }
+}
+
+
