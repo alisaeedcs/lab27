@@ -2,6 +2,7 @@
     "files.associations": {
         "iostream": "cpp",
         "map": "cpp",
-        "__tree": "cpp"
+        "__tree": "cpp",
+        "istream": "cpp"
     }
 }

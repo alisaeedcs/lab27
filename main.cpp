@@ -5,6 +5,7 @@
 #include <vector>
 using namespace std;
 
+
 int main_menu();
 void add_villager(map<string, tuple<int, string, string>>&);
 void del_villager(map<string, tuple<int, string, string>>&);
@@ -44,7 +45,7 @@ int main() {
                 cout << "Invalid choice.\n";
         }
     }
-
+//took a little long because coderunner errors in vscode
     return 0;
 }
 
@@ -73,7 +74,6 @@ void add_villager(map<string, tuple<int, string, string>>& mapp) {
     cin.ignore();
     getline(cin, species);
     cout << "\tCatchphrase: ";
-    cin.ignore();
     getline(cin, catchphrase);
     mapp[name] = make_tuple(friendship, species, catchphrase);
     cout << "\t" << name << " added." << endl;
@@ -84,6 +84,9 @@ void del_villager(map<string, tuple<int, string, string>>& mapp) {
     cout << "\tEnter villager name: ";
     cin.ignore();
     getline(cin, name);
+
+    auto it = mapp.find(name);
+    
     mapp.erase(name);
     cout << "\t" << name << " deleted." << endl;
 }
@@ -157,12 +160,12 @@ void display_all(map<string, tuple<int, string, string>>& mapp) {
         return;
     }
 
-    cout << "Villager Details: \n";
+    cout << "\tVillager Details: \n";
     for (const auto& [name, info] : mapp) {
         int friendship = get<0>(info);
         string species = get<1>(info);
         string catchphrase = get<2>(info);
-        cout << name << " [" << friendship << ", " << species << ", " << catchphrase << "]\n";
+        cout << "\t" << name << " [" << friendship << ", " << species << ", " << catchphrase << "]\n";
     }
 
 }
