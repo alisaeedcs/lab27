@@ -16,48 +16,28 @@ int main() {
     // declarations
     map<string, tuple<int, string, string>> villagerColors;
 
-    // insert elements into the map
-    // note how the right-hand side of the assignment are the vector elements
-
-    // access the map using a range-based for loop
-    cout << "Villagers and their favorite colors (range-based for loop):" << endl;
-    for (auto pair : villagerColors) {
-        cout << pair.first << ": ";
-   ///     for (auto color : pair.second)
-     //       cout << color << " ";
-        cout << endl;
-    }
-
-    // access the map using iterators
-    cout << "\nVillagers and their favorite colors (iterators):" << endl;
-    for (map<string, vector<string>>::iterator it = villagerColors.begin(); 
-                                               it != villagerColors.end(); ++it) {
-        cout << it->first << ": ";
-        for (auto color : it->second) {
-            cout << color << " ";
+    int choice;
+    while (choice != 6) {
+        choice = main_menu();
+        switch(choice) {
+            case 1:
+                add_villager(villagerColors);
+                break;
+            case 2:
+                del_villager(villagerColors);
+                break;
+            case 3:
+                increase_friendship(villagerColors);
+                break;
+            case 4:
+                decrease_friendship(villagerColors);
+                break;
+            case 5:
+                search(villagerColors);
+                break;
+            case 6:
         }
-        cout << endl;
     }
-
-    // delete an element
-    villagerColors.erase("Raymond");
-
-    // search for an element using .find() to avoid errors
-    string searchKey = "Audie";
-    auto it = villagerColors.find(searchKey);
-    if (it != villagerColors.end()) {  // the iterator points to beyond the end of the map
-                                       // if searchKey is not found
-        cout << "\nFound " << searchKey << "'s favorite colors: ";
-        for (auto color : it->second)  // range loop to traverse the value/vector
-            cout << color << " ";
-        cout << endl;
-    } else
-        cout << endl << searchKey << " not found." << endl;
-
-    // report size, clear, report size again to confirm map operations
-    cout << "\nSize before clear: " << villagerColors.size() << endl;
-    villagerColors.clear();
-    cout << "Size after clear: " << villagerColors.size() << endl;
 
     return 0;
 }
@@ -78,33 +58,33 @@ int main_menu() {
 void add_villager(map<string, tuple<int, string, string>>& mapp) {
     string name, species, catchphrase;
     int friendship; 
-    cout << "Villager name: ";
+    cout << "\tVillager name: ";
     cin.ignore();
     getline(cin, name);
-    cout << "Friendship level: ";
+    cout << "\tFriendship level: ";
     cin >> friendship;
-    cout << "Species: ";
+    cout << "\tSpecies: ";
     cin.ignore();
     getline(cin, species);
-    cout << "Catchphrase: ";
+    cout << "\tCatchphrase: ";
     cin.ignore();
     getline(cin, catchphrase);
     mapp[name] = make_tuple(friendship, species, catchphrase);
-    cout << name << " added." << endl;
+    cout << "\t" << name << " added." << endl;
 }
 
-void delete_villager(map<string, tuple<int, string, string>>& mapp) {
+void del_villager(map<string, tuple<int, string, string>>& mapp) {
     string name;
-    cout << "Enter villager name: ";
+    cout << "\tEnter villager name: ";
     cin.ignore();
     getline(cin, name);
     mapp.erase(name);
-    cout << name << " deleted." << endl;
+    cout << "\t" << name << " deleted." << endl;
 }
 
 void increase_friendship(map<string, tuple<int, string, string>>& mapp) {
     string name;
-    cout << "Enter villager name: ";
+    cout << "\tEnter villager name: ";
     cin.ignore();
     getline(cin, name);
 
@@ -113,20 +93,20 @@ void increase_friendship(map<string, tuple<int, string, string>>& mapp) {
         int &friendship = get<0>(it->second);
         if (friendship < 10) {
             friendship++;
-            cout << name << "'s friendship level has increased\n";
+            cout << "\t" << name << "'s friendship level has increased\n";
         }
         else {
-            cout << name << "'s friendship level is at maximum\n";
+            cout << "\t" << name << "'s friendship level is at maximum\n";
         }
     }
     else {
-        cout << "Not in map\n";
+        cout << "\t" << "Not in map\n";
     }
 }
 
 void decrease_friendship(map<string, tuple<int, string, string>>& mapp) {
     string name;
-    cout << "Enter villager name: ";
+    cout << "\tEnter villager name: ";
     cin.ignore();
     getline(cin, name);
 
@@ -135,18 +115,33 @@ void decrease_friendship(map<string, tuple<int, string, string>>& mapp) {
         int &friendship = get<0>(it->second);
         if (friendship > 0) {
             friendship--;
-            cout << name << "'s friendship level has decreased\n";
+            cout << "\t" << name << "'s friendship level has decreased\n";
         }
         else {
-            cout << name << "'s friendship level is at minimum\n";
+            cout << "\t" << name << "'s friendship level is at minimum\n";
         }
     }
     else {
-        cout << "Not in map\n";
+        cout << "\tNot in map\n";
     }
 }
 
-void search(map<string, tuple<int, string, string>>&) {
-    
+void search(map<string, tuple<int, string, string>>& mapp) {
+    string name;
+    cout << "\tEnter villager name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    auto it = mapp.find(name);
+    if (it != mapp.end()) {
+        int &friendship = get<0>(it->second);
+        string &species = get<1>(it->second);
+        string &catchphrase = get<2>(it->second);
+        cout << "\tVillager Found: " << name << "[" << friendship << ", " << species << ", " << catchphrase << "]\n";
+    }
+    else {
+        cout << "\tVillager not found\n";
+    }
+
 }
 
