@@ -9,6 +9,7 @@ void add_villager(map<string, tuple<int, string, string>>&);
 void del_villager(map<string, tuple<int, string, string>>&);
 void increase_friendship(map<string, tuple<int, string, string>>&);
 void decrease_friendship(map<string, tuple<int, string, string>>&);
+void search(map<string, tuple<int, string, string>>&);
 
 int main() {
     cout << "Villager Map!" << endl;
@@ -109,7 +110,17 @@ void increase_friendship(map<string, tuple<int, string, string>>& mapp) {
 
     auto it = mapp.find(name);
     if (it != mapp.end()) {
-        mapp
+        int &friendship = get<0>(it->second);
+        if (friendship < 10) {
+            friendship++;
+            cout << name << "'s friendship level has increased\n";
+        }
+        else {
+            cout << name << "'s friendship level is at maximum\n";
+        }
+    }
+    else {
+        cout << "Not in map\n";
     }
 }
 
@@ -121,8 +132,21 @@ void decrease_friendship(map<string, tuple<int, string, string>>& mapp) {
 
     auto it = mapp.find(name);
     if (it != mapp.end()) {
-        
+        int &friendship = get<0>(it->second);
+        if (friendship > 0) {
+            friendship--;
+            cout << name << "'s friendship level has decreased\n";
+        }
+        else {
+            cout << name << "'s friendship level is at minimum\n";
+        }
+    }
+    else {
+        cout << "Not in map\n";
     }
 }
 
+void search(map<string, tuple<int, string, string>>&) {
+    
+}
 
